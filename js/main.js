@@ -15,6 +15,35 @@ document.getElementById("addItem").onclick = () => {
   renderTodolist(ToDoList);
 };
 
+document.getElementById("two").onclick = () => {
+  let arrSort = ToDoList.sort((tdoA, tdoB) => {
+    let a = tdoA.content.toLowerCase();
+    let b = tdoB.content.toLowerCase();
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
+  });
+  renderTodolist(arrSort);
+};
+document.getElementById("three").onclick = () => {
+  let arrSort = ToDoList.sort((tdoA, tdoB) => {
+    let a = tdoA.content.toLowerCase();
+    let b = tdoB.content.toLowerCase();
+    if (a > b) {
+      return -1;
+    }
+    if (a < b) {
+      return 1;
+    }
+    return 0;
+  });
+  renderTodolist(arrSort);
+};
+
 const postData = async (tdo) => {
   try {
     const postTdo = await ServiceAPI.postTodo(tdo);
@@ -62,7 +91,7 @@ const renderTodolist = (list) => {
   let contentB = "";
   for (let i = 0; i < list.length; i++) {
     let type = list[i].type;
-    if ((type == "incomplete")) {
+    if (type == "incomplete") {
       contentA += `
       <li>${list[i].content}
       <div>
@@ -75,7 +104,7 @@ const renderTodolist = (list) => {
       </div>
       </li>
       `;
-    } else if ((type == "complete")) {
+    } else if (type == "complete") {
       contentB += `
       <li style="color:green">${list[i].content}
       <div>
